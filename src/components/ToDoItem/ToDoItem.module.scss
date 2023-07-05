@@ -1,0 +1,46 @@
+.toDoItem {
+  min-height: 80px;
+  width: 90%;
+  max-width: 600px;
+  border: 1px solid black;
+  border-radius: 1em;
+  position: relative;
+  padding: 1em;
+
+  p, h3 {
+    margin: 0;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    span {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .last {
+      float: right;
+    }
+  }
+
+  .content {
+    margin-top: 1em;
+  }
+}
+
+.deleteIcon {
+  height: 40px;
+  width: 40px;
+
+  &:hover {
+    color: red;
+    cursor: pointer;
+  }
+}

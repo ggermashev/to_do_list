@@ -1,0 +1,16 @@
+.checkInput {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+
+  input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
