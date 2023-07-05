@@ -12,12 +12,15 @@
 
 
   .wrap {
-    width: 60%;
-    height: 60%;
-    max-width: 800px;
+    min-width: 60%;
+    max-width: 90%;
+    max-height: 70%;
     min-height: 400px;
     border-radius: 1em;
     background-color: white;
     padding: 1em;
+    overflow-y: auto;
+    position: relative;
+
   }
 }

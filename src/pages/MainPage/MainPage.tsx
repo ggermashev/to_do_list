@@ -5,7 +5,8 @@ import Button from "../../components/Button/Button";
 import toDoList from "../../store/ToDoList";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import TextInput from "../../components/TextInput/TextInput";
-import Calendar from "../../components/Calendar/Calendar";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import ToDoItem from "../../components/ToDoItem/ToDoItem";
 import {observer} from "mobx-react-lite";
 import toDoItem from "../../components/ToDoItem/ToDoItem";
@@ -16,12 +17,15 @@ const MainPage = observer(() => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [date, setDate] = useState("05.06.2023")
+    const [date, setDate] = useState(new Date())
 
     const [colors, setColors] = useState<string[]>([])
 
     const [mode, setMode] = useState("")
 
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className={styles.mainPage}>
             <div className={styles.menu}>
@@ -83,14 +87,14 @@ const MainPage = observer(() => {
                 }}>
                     <TextInput title={"Название"} value={title} setValue={setTitle}/>
                     <TextInput title={"Описание"} value={description} setValue={setDescription} multiline={true}/>
-                    <Calendar/>
+                    <Calendar value={date} onChange={(v, e) => setDate(v as Date)}/>
                     <Button
                         onCLick={() => {
-                            toDoList.addToDoItem({title, description, date, completed: false, id: Math.random()})
+                            toDoList.addToDoItem({title, description, date: date.toDateString(), completed: false, id: Math.random()})
                             setShowModal(false)
                             setTitle("")
                             setDescription("")
-                            setDate("")
+                            setDate(new Date())
                         }}
                     >Добавить</Button>
                 </ModalWindow>
