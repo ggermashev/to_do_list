@@ -14,6 +14,23 @@ class ToDoList {
 
     addToDoItem(item: IToDo) {
         this.todos.unshift(item)
+        this._todos = this._todos.sort((a,b) => {
+            if (a.completed === b.completed) {
+                if (a.date === b.date) {
+                    return 0
+                }
+                if (new Date(a.date) > new Date(b.date)) {
+                    return 1
+                } else {
+                    return -1
+                }
+            }
+            if (b.completed) {
+                return -1
+            } else {
+                return 1
+            }
+        })
     }
 
     removeToDoItem(item: IToDo) {
@@ -23,12 +40,15 @@ class ToDoList {
     completeToDoItem(item: IToDo) {
         item.completed = !item.completed
         this._todos = this._todos.sort((a,b) => {
-            if (b.completed) {
-                if (!a.completed) {
-                    return -1
+            if (a.completed === b.completed) {
+                if (new Date(a.date) > new Date(b.date)) {
+                    return 1
                 } else {
-                    return 0
+                    return -1
                 }
+            }
+            if (b.completed) {
+                return -1
             } else {
                 return 1
             }
