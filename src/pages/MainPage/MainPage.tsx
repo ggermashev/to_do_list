@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './MainPage.module.scss'
 import Button from "../../components/Button/Button";
 
@@ -10,6 +10,12 @@ import 'react-calendar/dist/Calendar.css';
 import ToDoItem from "../../components/ToDoItem/ToDoItem";
 import {observer} from "mobx-react-lite";
 import toDoItem from "../../components/ToDoItem/ToDoItem";
+
+async function wait(ms: number) {
+    await new Promise(resolve => {
+        setTimeout(resolve, ms)
+    })
+}
 
 const MainPage = observer(() => {
 
@@ -23,9 +29,13 @@ const MainPage = observer(() => {
 
     const [mode, setMode] = useState("")
 
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
+    useEffect( () => {
+
+        toDoList.import()
+
+    }, [])
+
+
     return (
         <div className={styles.mainPage}>
             <div className={styles.menu}>
@@ -66,7 +76,7 @@ const MainPage = observer(() => {
                 setShowModal(true)
             }}>Добавить задачу</Button>
             <div className={styles.todos}>
-                {toDoList.todos.map((todo, i) =>
+                {toDoList.todos?.map((todo, i) =>
                     <ToDoItem
                         key={todo.id}
                         id={todo.id}

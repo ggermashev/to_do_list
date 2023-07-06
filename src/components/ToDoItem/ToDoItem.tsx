@@ -35,7 +35,7 @@ const ToDoItem: FC<IToDoItem> = ({id, title, description, date, completed, setCh
                     <p className={styles.last}>{date}</p>
                     <DeleteIcon className={styles.deleteIcon} onClick={() => {
                         tl.to(`#to-do-item-${id}`, {
-                            duration: 0.5,
+                            duration: 0.2,
                             opacity: 0
                         }).then(() => {
                             onRemove()

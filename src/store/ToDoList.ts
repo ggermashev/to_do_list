@@ -13,7 +13,7 @@ class ToDoList {
     }
 
     addToDoItem(item: IToDo) {
-        this.todos.unshift(item)
+        this._todos.unshift(item)
         this._todos = this._todos.sort((a,b) => {
             if (a.completed === b.completed) {
                 if (a.date === b.date) {
@@ -31,10 +31,12 @@ class ToDoList {
                 return 1
             }
         })
+        this.export()
     }
 
     removeToDoItem(item: IToDo) {
         this._todos = this.todos.filter(todo => todo.id !== item.id)
+        this.export()
     }
 
     completeToDoItem(item: IToDo) {
@@ -53,22 +55,38 @@ class ToDoList {
                 return 1
             }
         })
+        this.export()
     }
 
     updateToDoItem(i: number ,item: IToDo) {
         this._todos[i] = item
+        this.export()
     }
 
     removeLast() {
-        return this.todos.pop()
+        this.todos.pop()
+        this.export()
     }
 
     removeFirst() {
-        return this.todos.shift()
+        this.todos.shift()
+        this.export()
     }
 
     clearToDos() {
         this._todos = []
+        this.export()
+    }
+
+    import() {
+        const data = localStorage.getItem('todos')
+        if (data) {
+            this._todos = JSON.parse(data)
+        }
+    }
+
+    export() {
+        localStorage.setItem('todos', JSON.stringify(this._todos))
     }
 
 }
