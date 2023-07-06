@@ -68,6 +68,7 @@ const MainPage = observer(() => {
             <div className={styles.todos}>
                 {toDoList.todos.map((todo, i) =>
                     <ToDoItem
+                        key={todo.id}
                         id={todo.id}
                         title={todo.title}
                         description={todo.description}
@@ -90,7 +91,7 @@ const MainPage = observer(() => {
                     <Calendar value={date} onChange={(v, e) => setDate(v as Date)}/>
                     <Button
                         onCLick={() => {
-                            toDoList.addToDoItem({title, description, date: date.toDateString(), completed: false, id: Math.random()})
+                            toDoList.addToDoItem({title, description, date: date.toDateString(), completed: false, id: Math.round((Math.random() * 1e6))})
                             setShowModal(false)
                             setTitle("")
                             setDescription("")

@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import styles from './ToDoItem.module.scss'
 import {IToDo} from "../../types/types";
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckInput from "../CheckInput/CheckInput";
+import gsap from "gsap"
 
 interface IToDoItem extends IToDo {
     setChecked: (val: boolean) => void
@@ -11,8 +12,20 @@ interface IToDoItem extends IToDo {
 }
 
 const ToDoItem: FC<IToDoItem> = ({id, title, description, date, completed, setChecked, onRemove, color}) => {
+
+    const tl = gsap.timeline()
+
+    useEffect(() => {
+
+        tl.to(`#to-do-item-${id}`, {
+            duration: 1,
+            opacity: 1
+        })
+
+    }, [])
+
     return (
-        <div className={styles.toDoItem} style={{backgroundColor: color || "white", }}>
+        <div id={`to-do-item-${id}`} className={styles.toDoItem} style={{backgroundColor: color || "white",}}>
             <div className={styles.row}>
                 <span>
                     <CheckInput checked={completed} setChecked={setChecked}/>
@@ -20,7 +33,14 @@ const ToDoItem: FC<IToDoItem> = ({id, title, description, date, completed, setCh
                 </span>
                 <span>
                     <p className={styles.last}>{date}</p>
-                    <DeleteIcon className={styles.deleteIcon} onClick={() => {onRemove()}}/>
+                    <DeleteIcon className={styles.deleteIcon} onClick={() => {
+                        tl.to(`#to-do-item-${id}`, {
+                            duration: 0.5,
+                            opacity: 0
+                        }).then(() => {
+                            onRemove()
+                        })
+                    }}/>
                 </span>
             </div>
             <div className={styles.content}>

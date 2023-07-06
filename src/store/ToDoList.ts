@@ -13,7 +13,7 @@ class ToDoList {
     }
 
     addToDoItem(item: IToDo) {
-        this.todos.push(item)
+        this.todos.unshift(item)
     }
 
     removeToDoItem(item: IToDo) {
@@ -22,6 +22,17 @@ class ToDoList {
 
     completeToDoItem(item: IToDo) {
         item.completed = !item.completed
+        this._todos = this._todos.sort((a,b) => {
+            if (b.completed) {
+                if (!a.completed) {
+                    return -1
+                } else {
+                    return 0
+                }
+            } else {
+                return 1
+            }
+        })
     }
 
     updateToDoItem(i: number ,item: IToDo) {
