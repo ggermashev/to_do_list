@@ -14,23 +14,7 @@ class ToDoList {
 
     addToDoItem(item: IToDo) {
         this._todos.unshift(item)
-        this._todos = this._todos.sort((a,b) => {
-            if (a.completed === b.completed) {
-                if (a.date === b.date) {
-                    return 0
-                }
-                if (new Date(a.date) > new Date(b.date)) {
-                    return 1
-                } else {
-                    return -1
-                }
-            }
-            if (b.completed) {
-                return -1
-            } else {
-                return 1
-            }
-        })
+        this.sort()
         this.export()
     }
 
@@ -41,25 +25,13 @@ class ToDoList {
 
     completeToDoItem(item: IToDo) {
         item.completed = !item.completed
-        this._todos = this._todos.sort((a,b) => {
-            if (a.completed === b.completed) {
-                if (new Date(a.date) > new Date(b.date)) {
-                    return 1
-                } else {
-                    return -1
-                }
-            }
-            if (b.completed) {
-                return -1
-            } else {
-                return 1
-            }
-        })
+        this.sort()
         this.export()
     }
 
-    updateToDoItem(i: number ,item: IToDo) {
-        this._todos[i] = item
+    updateToDoItem(i: number, data: {title: string, description:string, date: string}) {
+        Object.assign(this._todos[i], data)
+        this.sort()
         this.export()
     }
 
@@ -78,10 +50,31 @@ class ToDoList {
         this.export()
     }
 
+    sort() {
+        this._todos = this._todos.sort((a, b) => {
+            if (a.completed === b.completed) {
+                if (new Date(a.date) > new Date(b.date)) {
+                    return 1
+                } else {
+                    return -1
+                }
+            }
+            if (b.completed) {
+                return -1
+            } else {
+                return 1
+            }
+        })
+    }
+
     import() {
         const data = localStorage.getItem('todos')
         if (data) {
-            this._todos = JSON.parse(data)
+            try {
+                this._todos = JSON.parse(data)
+            } catch (e) {
+                this._todos = []
+            }
         }
     }
 
