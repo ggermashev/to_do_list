@@ -2,7 +2,8 @@
 
 ## Стэк:
 - React
+- TypeScript
 - MobX
+- MUI
 
-### Ссылка на решение:
-https://ggermashev.github.io/to_do_list/
+### https://ggermashev.github.io/to_do_list/
